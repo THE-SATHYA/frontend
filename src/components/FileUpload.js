@@ -22,7 +22,7 @@ const FileUpload = ({ onResult }) => {
         formData.append("file", file);
 
         try {
-            const response = await axios.post("https://mpuvicorn-main-app-host-0-0-0-0-port.onrender.com", formData, {
+            const response = await axios.post("", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             onResult(response.data);
