@@ -42,7 +42,7 @@
                 resultContainer.innerHTML = "<p>Uploading and processing...</p>";
 
                 try {
-                    const response = await fetch("https://backend-wx8s.onrender.com", { 
+                    const response = await fetch("https://backend-wx8s.onrender.com/predict/", { 
                         method: "POST",
                         body: formData
                     });
