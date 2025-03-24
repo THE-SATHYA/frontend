@@ -10,21 +10,54 @@
     <div class="app-container">
         <h2>Upload an Audio File</h2>
         <div class="upload-container">
-            <input type="file" id="audioFile" accept="audio/*">
+            <input type="file" id="fileInput" accept="audio/*">
             <button id="uploadButton" disabled>Upload</button>
         </div>
-        <div class="result-container" id="result">
-            <p>Result will be displayed here.!!!</p>
+        <div class="result-container" id="resultContainer">
+            <p>Result will be displayed here.</p>
         </div>
     </div>
 
     <script>
-        const fileInput = document.getElementById('audioFile');
-        const uploadButton = document.getElementById('uploadButton');
-        const resultContainer = document.getElementById('result');
+        document.addEventListener("DOMContentLoaded", function () {
+            const fileInput = document.getElementById("fileInput");
+            const uploadButton = document.getElementById("uploadButton");
+            const resultContainer = document.getElementById("resultContainer");
 
-        fileInput.addEventListener('change', function () {
-            uploadButton.disabled = !fileInput.files.length;
+            // Enable upload button when a file is selected
+            fileInput.addEventListener("change", function () {
+                uploadButton.disabled = !fileInput.files.length;
+            });
+
+            uploadButton.addEventListener("click", async function () {
+                if (!fileInput.files.length) {
+                    alert("Please select a file to upload.");
+                    return;
+                }
+
+                const file = fileInput.files[0];
+                const formData = new FormData();
+                formData.append("file", file);
+
+                resultContainer.innerHTML = "<p>Uploading and processing...</p>";
+
+                try {
+                    const response = await fetch("http://localhost:8000/predict", { // Replace with your backend URL
+                        method: "POST",
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        throw new Error("Failed to process the file.");
+                    }
+
+                    const data = await response.json();
+                    resultContainer.innerHTML = `<p><strong>Predicted Class:</strong> ${data['Predicted Class']}</p>`;
+                } catch (error) {
+                    console.error("Error uploading file:", error);
+                    resultContainer.innerHTML = "<p style='color:red;'><strong>Error uploading file. Please try again.</strong></p>";
+                }
+            });
         });
     </script>
 </body>
