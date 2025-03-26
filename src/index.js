@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         resultContainer.innerHTML = "Uploading...";
 
-        fetch("/upload", {
+        fetch("https://backend-wx8s.onrender.com/upload", {
             method: "POST",
             body: formData
         })
