@@ -22,7 +22,7 @@ const FileUpload = ({ onResult }) => {
         formData.append("file", file);
 
         try {
-            const response = await axios.post("https://backend-wx8s.onrender.com/predict/", formData, {
+            const response = await axios.post("backend-production-4c51.up.railway.app", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             onResult(response.data);
