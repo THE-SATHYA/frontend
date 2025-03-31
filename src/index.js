@@ -18,11 +18,11 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("file", file);
 
         resultContainer.innerHTML = "Uploading...";
+        
+        const API_BASE_URL = "https://backend-production-4c51.up.railway.app";
+        fetch(`${API_BASE_URL}/upload`, { method: "POST", body: formData })
 
-        fetch("backend-production-4c51.up.railway.app", {
-            method: "POST",
-            body: formData
-        })
+
         .then(response => response.json())
         .then(data => {
             resultContainer.innerHTML = `<strong>Upload Successful!</strong><br>File Name: ${data.fileName}<br>Size: ${data.fileSize} bytes`;
