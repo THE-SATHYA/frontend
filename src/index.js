@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         resultContainer.innerHTML = "Uploading...";
 
-        fetch("https://backend-wx8s.onrender.com/upload", {
+        fetch("backend-production-4c51.up.railway.app", {
             method: "POST",
             body: formData
         })
